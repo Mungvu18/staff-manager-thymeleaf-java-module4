@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout:: head">
+    <meta charset="UTF-8">
+    <title>Staffs manager</title>
+</head>
+<body>
+<form th:object="${staff}" action="/staffs/search" method="post">
+    <input type="text" th:field="*{id}">
+    <input type="submit" value="Search">
+</form>
+<form>
+    <h2><a th:href="@{/staffs/create}">Add new staff</a></h2>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Age</th>
+            <th colspan="2">Action</th>
+        </tr>
+        <th:block th:each="s:${list}">
+        <tr>
+            <td th:text="${s.id}"></td>
+            <td th:text="${s.name}"></td>
+            <td th:text="${s.address}"></td>
+            <td th:text="${s.age}"></td>
+            <td><a th:href="@{/staffs/edit(id=${s.id})}">Edit</a></td>
+            <td><a onclick="return confirm('Are you sure delete object?')" th:href="@{/staffs/delete(id=${s.id})}">Delete</a></td>
+        </tr>
+        </th:block>
+    </table>
+</form>
+</body>
+<footer th:replace="/layout:: footer" ></footer>
+</html>
